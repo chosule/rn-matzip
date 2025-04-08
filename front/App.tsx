@@ -6,7 +6,6 @@
  */
 
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/navigations/root/RootNavigator';
 
@@ -18,4 +17,6 @@ function App(): React.JSX.Element {
   );
 }
 
-export default App;
+export {default} from './.storybook';
+
+// export default App;
