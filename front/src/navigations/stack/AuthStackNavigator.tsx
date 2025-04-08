@@ -1,25 +1,50 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import LoginScreen from '../../screens/LoginScreen';
 import AuthHomeScreen from '../../screens/AuthHomeScreen';
 import {authNavigations} from '../../constants';
+import SignupScreen from '../../screens/SignupScreen';
 
 export type RootStackParamList = {
   [authNavigations.AUTH_HOME]: undefined;
   [authNavigations.LOGIN]: undefined;
+  [authNavigations.SIGN_UP]: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
 
 const AuthStackNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: '#fff',
+        },
+        headerStyle: {
+          backgroundColor: '#fff',
+          shadowColor: 'gray',
+        },
+        headerTitleStyle: {
+          fontSize: 15,
+        },
+        headerTintColor: '#000',
+      }}>
       <Stack.Screen
         name={authNavigations.AUTH_HOME}
         component={AuthHomeScreen}
+        options={{headerTitle: ' ', headerShown: false}}
       />
-      <Stack.Screen name={authNavigations.LOGIN} component={LoginScreen} />
+      <Stack.Screen
+        name={authNavigations.LOGIN}
+        component={LoginScreen}
+        options={{headerTitle: '로그인'}}
+      />
+      <Stack.Screen
+        name={authNavigations.SIGN_UP}
+        component={SignupScreen}
+        options={{headerTitle: '회원가입'}}
+      />
     </Stack.Navigator>
   );
 };
