@@ -13,7 +13,6 @@ const LoginScreen = () => {
     },
     validate: validateLogin,
   });
-  console.log('getTextInputProps', login.getTextInputProps('email'));
 
   const handlerSubmit = () => {
     console.log('values', login.values);
