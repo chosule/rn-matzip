@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {ForwardedRef, forwardRef, useRef} from 'react';
 import {
   View,
   Text,
@@ -9,44 +9,46 @@ import {
 } from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import {colors} from '../constants';
+import {mergeRefs} from '../utils';
 
 interface InputFieldProps extends TextInputProps {
   disabled?: boolean;
   error?: string;
   touched?: boolean;
 }
-const InputField = ({
-  disabled = false,
-  error,
-  touched,
-  ...props
-}: InputFieldProps) => {
-  const inputRef = useRef<TextInput | null>(null);
-  const handlePressInput = () => {
-    inputRef.current?.focus();
-  };
-  return (
-    <Pressable onPress={handlePressInput}>
-      <View
-        style={[
-          styles.container,
-          disabled && styles.disabled,
-          touched && error && styles.error,
-        ]}>
-        <TextInput
-          editable={!disabled}
-          placeholderTextColor={colors.GRAY_500}
-          style={[styles.input, disabled && styles.disabled]}
-          autoCapitalize="none"
-          spellCheck={false}
-          autoCorrect={false}
-          {...props}
-        />
-        {touched && !!error && <Text style={styles.errorText}>{error}</Text>}
-      </View>
-    </Pressable>
-  );
-};
+const InputField = forwardRef(
+  (
+    {disabled = false, error, touched, ...props}: InputFieldProps,
+    ref?: ForwardedRef<TextInput>,
+  ) => {
+    const inputRef = useRef<TextInput | null>(null);
+    const handlePressInput = () => {
+      inputRef.current?.focus();
+    };
+    return (
+      <Pressable onPress={handlePressInput}>
+        <View
+          style={[
+            styles.container,
+            disabled && styles.disabled,
+            touched && error && styles.error,
+          ]}>
+          <TextInput
+            ref={ref ? mergeRefs(inputRef, ref) : inputRef}
+            editable={!disabled}
+            placeholderTextColor={colors.GRAY_500}
+            style={[styles.input, disabled && styles.disabled]}
+            autoCapitalize="none"
+            spellCheck={false}
+            autoCorrect={false}
+            {...props}
+          />
+          {touched && !!error && <Text style={styles.errorText}>{error}</Text>}
+        </View>
+      </Pressable>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {
