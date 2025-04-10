@@ -17,6 +17,6 @@ function App(): React.JSX.Element {
   );
 }
 
-export {default} from './.storybook';
+// export {default} from './.storybook';
 
-// export default App;
+export default App;

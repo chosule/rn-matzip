@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 import AuthHomeScreen from '../../screens/auth/AuthHomeScreen';
-import {authNavigations} from '../../constants';
+import {authNavigations} from '../../constants/navigations';
 import SignupScreen from '../../screens/auth/SignupScreen';
 import LoginScreen from '../../screens/auth/LoginScreen';
 
